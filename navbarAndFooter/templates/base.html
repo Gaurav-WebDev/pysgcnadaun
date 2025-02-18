@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <!-- Internal CSS -->
+     <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html , body{
+            height: 100%;
+            width: 100%;
+        }
+
+        body{
+            text-align: center;
+        }
+
+        nav{
+            background-color: #333;
+            height: max-content;
+            width: 100%;
+            padding: 10px;
+        }
+
+        nav ul{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            list-style: none;
+        }
+
+        nav a{
+            text-decoration: none;
+            color : #fff;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+
+
+     </style>
+</head>
+
+<body>
+
+    <!-- Navbar Start -->
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+    <hr>
+
+    <!-- Navbar End -->
+
+    <!-- Main Start -->
+
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+
+    <!-- Main End -->
+
+    <!-- Footer Start -->
+    <hr>
+    <footer>
+        <p>I am Footer</p>
+        <p>Copyright &copy; Flask App</p>
+    </footer>
+
+
+    <!-- Footer End -->
+
+</body>
+
+</html>
