@@ -1,4 +1,4 @@
-from flask import Flask , render_template , request
+from flask import Flask , render_template , request , redirect , url_for
 from flask_mysqldb import MySQL
 from flask_bcrypt import Bcrypt
 
@@ -9,6 +9,7 @@ app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = "root"
 app.config["MYSQL_DB"] = "flaskapp"
+app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -41,8 +42,23 @@ def signupHandle():
     mysql.connection.commit()
     cur.close()
 
-    return "Data Insert"
+    return redirect(url_for('showLogin'))
 
+
+@app.route('/loginHandle' , methods=['post'])
+def loginHandle():
+    email = request.form['email']
+    password = request.form['password']
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users WHERE email = %s" , (email , ))
+    user = cur.fetchone()
+    # return user['password']
+
+    if user and bcrypt.check_password_hash(user['password'] ,password):
+        return "Login Done"
+    else :
+        return "Login Failed"
 
 
 
